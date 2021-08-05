@@ -3,7 +3,7 @@
   hosts: junos
   gather_facts: no
   tasks:
-  - name: Set acls for protcol based acls config
+  - name: Set acls for protocol based acls config
     junipernetworks.junos.junos_config:
       lines:
       - set firewall family inet filter allow_ssh_acl term ssh_rule from protocol tcp

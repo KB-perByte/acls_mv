@@ -7,5 +7,16 @@ ansible_connection = ansible.netcommon.netconf
 ansible_ssh_user = vagrant
 ansible_ssh_private_key_file = /home/sagpaul/.vagrant.d/insecure_private_key
 
+[devnetXe]
+sandbox-iosxe-latest-1.cisco.com
+
+[devnetXe:vars]
+ansible_network_os=ios
+ansible_connection=network_cli
+ansible_user=developer
+ansible_ssh_pass=C1sco12345
+ansible_become=yes
+ansible_become_method=enable
+
 [all:vars]
 ansible_network_import_modules=True

@@ -1,0 +1,14 @@
+- name: add acls
+  hosts: devnetXe
+  gather_facts: no
+  tasks:
+  - name: Interface config of acls with provided configuration
+    cisco.ios.ios_acl_interfaces:
+      config:
+      - name: GigabitEthernet0/0
+        access_groups:
+        - afi: ipv4
+          acls:
+          - name: 99
+            direction: in
+      state: merged

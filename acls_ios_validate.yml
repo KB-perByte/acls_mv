@@ -1,0 +1,19 @@
+---
+- name: IOS config acl playbook validate
+  hosts: devnetXe
+  gather_facts: no
+  tasks:
+  - name: grab IOS facts
+    cisco.ios.ios_facts:
+      gather_subset: min
+      gather_network_resources: acls
+
+  - name: Ensure that the acl information is accurate.
+    cisco.ios.ios_acls:
+      config: "{{ ansible_network_resources['acls'] }}"
+      state: merged
+    register: result
+
+  - name: Ensure config did not change.
+    assert:
+      that: not result.changed

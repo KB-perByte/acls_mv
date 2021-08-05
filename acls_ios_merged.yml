@@ -1,0 +1,19 @@
+- name: add acls
+  hosts: devnetXe
+  gather_facts: no
+  tasks:
+  - name: Replaces device configuration of listed acls with provided configuration
+    cisco.ios.ios_acls:
+      config:
+      - afi: ipv4
+        acls:
+        - name: 99
+          aces:
+          - grant: deny
+            source:
+              address: 1.1.1.1
+              wildcard_bits: 0.0.0.0
+          - grant: permit
+            destination:
+              any: true
+      state: merged

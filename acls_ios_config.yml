@@ -1,0 +1,17 @@
+---
+- name: IOS config acl playbook
+  hosts: devnetXe
+  gather_facts: no
+  tasks:
+  - name: Set acls for loopback
+    cisco.ios.ios_config:
+      lines:
+      - deny 1.1.1.1 0.0.0.0 log
+      - permit any
+      parents: ip access-list standard 99
+  
+  - name: Set infterface information
+    cisco.ios.ios_config:
+      lines:
+      - ip access-group 99 in
+      parents: interface GigabitEthernet 0/0

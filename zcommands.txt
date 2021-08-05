@@ -12,6 +12,7 @@ no inbound traffic to loopback only outbound traffic to other interfaces
 
 CISCO
 traffic to be dined from 1.1.1.1
+
 config t
 ip access-list standard 99
 deny 1.1.1.1 0.0.0.0 log

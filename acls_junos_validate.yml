@@ -1,0 +1,19 @@
+---
+- name: Junos config acl playbook validate
+  hosts: junos
+  gather_facts: no
+  tasks:
+  - name: grab juniper junos facts
+    junipernetworks.junos.junos_facts:
+      gather_subset: min
+      gather_network_resources: acls
+
+  - name: Ensure that the acl information is accurate.
+    junipernetworks.junos.junos_acls:
+      config: "{{ ansible_network_resources['junos_acls'] }}"
+      state: merged
+    register: result
+
+  - name: Ensure config did not change.
+    assert:
+      that: not result.changed
