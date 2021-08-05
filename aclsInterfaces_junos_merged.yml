@@ -1,0 +1,17 @@
+---
+- name: Junos config acl playbook
+  hosts: junos
+  gather_facts: no
+  tasks:
+  - name: add JUNOS acl interface filter
+    junipernetworks.junos.junos_acl_interfaces:
+      config:
+      - name: ge-0/0/0
+        access_groups:
+        - afi: ipv4
+          acls:
+          - name: from-cisco
+            direction: in
+          # - name: outbound_acl
+          #   direction: out
+      state: merged

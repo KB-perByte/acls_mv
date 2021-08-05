@@ -1,5 +1,5 @@
 ---
-- name: Junos facts playbook
+- name: Junos ACLs playbook
   hosts: junos
   gather_facts: no
   tasks:

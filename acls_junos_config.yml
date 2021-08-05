@@ -1,0 +1,18 @@
+---
+- name: Junos config acl playbook
+  hosts: junos
+  gather_facts: no
+  tasks:
+  - name: Set acls for protcol based acls config
+    junipernetworks.junos.junos_config:
+      lines:
+      - set firewall family inet filter allow_ssh_acl term ssh_rule from protocol tcp
+      - set firewall family inet filter allow_ssh_acl term ssh_rule from source-port ssh
+
+  - name: Set acls for loopback
+    junipernetworks.junos.junos_config:
+      lines:
+      - set firewall family inet filter from-cisco term test-lop from source-address 2.2.2.2/32
+      - set firewall family inet filter from-cisco term test-lop from destination-address 1.1.1.1/32
+      - set firewall family inet filter from-cisco term test-lop then discard
+      - set interfaces ge-0/0/0 unit 0 family inet filter input-list from-cisco
