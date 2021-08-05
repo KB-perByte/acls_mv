@@ -1,0 +1,28 @@
+---
+- name: Junos facts playbook
+  hosts: junos
+  gather_facts: no
+  tasks:
+  - name: Merge JUNOS acl
+    junipernetworks.junos.junos_acls:
+      config:
+      - afi: ipv4
+        acls:
+        - name: allow_ssh_acl
+          aces:
+          - name: ssh_rule
+            source:
+              port_protocol:
+                eq: ssh
+            protocol: tcp
+      - afi: ipv4
+        acls:
+        - name: from-cisco
+          aces:
+          - name: test-lop
+            source:
+              address: 2.2.2.2
+            destination:
+              address: 1.1.1.1
+            grant: deny
+      state: merged

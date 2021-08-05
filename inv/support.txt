@@ -1,0 +1,16 @@
+[all:vars]
+ansible_network_import_modules=True
+ansible_python_interpreter=python
+/home/sagpaul/Work/bannerNconfig/inv/inventory_lite
+
+❯ vagrant ssh-config
+Host junos
+  HostName 192.168.122.100
+  User vagrant
+  Port 22
+  UserKnownHostsFile /dev/null
+  StrictHostKeyChecking no
+  PasswordAuthentication no
+  IdentityFile /home/sagpaul/.vagrant.d/insecure_private_key
+  IdentitiesOnly yes
+  LogLevel FATAL

@@ -1,0 +1,45 @@
+ansible-navigator run --eei=ansible-automation-platform-20-ee-supported-rhel8 issue_374.yaml --container-engine podman --mode stdout -vvvv
+
+Juniper loopback 1.1.1.1/32
+no inbound traffic to loopback only outbound traffic to other interfaces
+^
+.
+.
+.
+\/
+cisco loopback 2.2.2.2/32
+no inbound traffic to loopback only outbound traffic to other interfaces
+
+CISCO
+traffic to be dined from 1.1.1.1
+config t
+ip access-list standard 99
+deny 1.1.1.1 0.0.0.0 log
+permit any
+
+interface ethernet 0/0
+ip access-group 99 in
+
+sho ip access-lists
+sho running-config interface ehternet 0/0
+
+
+JUNOS
+traffic to be dined from 2.2.2.2
+if not defined from then we permit all traffic
+
+configure
+set firewall family inet filter from-cisco term 1 from source-address 2.2.2.2 destination-address 1.1.1.1
+... term 1 then reject
+... tern 1 then count icmp-deny
+
+set firewall family inet filer from-cisco term 2 then accept
+.. term 2 then count all-other
+
+set interface ge-0/0/0 unit 0 family inet filter input from-cisco
+
+commit
+
+show configuration firewall familt intet filer from-cisco | display set
+show configuration interfaces ge-0/0/0 | display  ser
+show firewall filter counter icmp-deny from-cisco

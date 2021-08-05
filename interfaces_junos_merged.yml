@@ -1,0 +1,17 @@
+---
+- name: Junos facts playbook
+  hosts: junos
+  gather_facts: no
+  tasks:
+  - name: Merge provided configuration with device configuration (default operation
+      is merge)
+    junipernetworks.junos.junos_interfaces:
+      config:
+      - name: ge-0/0/1
+        description: Configured by Ansible-1
+        enabled: true
+        mtu: 1800
+      - name: ge-0/0/2
+        description: Configured by Ansible-2
+        enabled: false
+      state: merged
