@@ -1,0 +1,18 @@
+junos_acls:
+-   acls:
+    -   aces:
+        -   name: ssh_rule
+            protocol: tcp
+            source:
+                port_protocol:
+                    eq: ssh
+        name: allow_ssh_acl
+    -   aces:
+        -   destination:
+                address: 1.1.1.1/32
+            grant: deny
+            name: test-lop
+            source:
+                address: 2.2.2.2/32
+        name: from-cisco
+    afi: ipv4

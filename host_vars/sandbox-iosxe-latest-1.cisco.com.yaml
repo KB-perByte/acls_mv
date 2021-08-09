@@ -1,0 +1,141 @@
+acls:
+-   acls:
+    -   aces:
+        -   grant: deny
+            log:
+                set: true
+            sequence: 10
+            source:
+                address: 1.1.1.1
+        -   grant: permit
+            sequence: 20
+            source:
+                any: true
+        acl_type: standard
+        name: '99'
+    -   acl_type: extended
+        name: meraki-fqdn-dns
+    -   aces:
+        -   destination:
+                host: 100.100.100.100
+            grant: permit
+            protocol: tcp
+            protocol_options:
+                tcp:
+                    established: true
+            sequence: 10
+            source:
+                address: 197.98.201.0
+                port_protocol:
+                    eq: www
+                wildcard_bits: 0.0.0.255
+        -   destination:
+                host: 100.100.100.100
+            grant: permit
+            protocol: tcp
+            protocol_options:
+                tcp:
+                    established: true
+            sequence: 30
+            source:
+                address: 197.98.201.0
+                port_protocol:
+                    eq: '443'
+                wildcard_bits: 0.0.0.255
+        -   destination:
+                host: 100.100.100.100
+            grant: permit
+            protocol: tcp
+            protocol_options:
+                tcp:
+                    established: true
+            sequence: 50
+            source:
+                address: 197.98.201.0
+                port_protocol:
+                    eq: '8080'
+                wildcard_bits: 0.0.0.255
+        -   destination:
+                host: 100.100.100.100
+            grant: permit
+            protocol: tcp
+            protocol_options:
+                tcp:
+                    established: true
+            sequence: 70
+            source:
+                address: 197.98.201.0
+                port_protocol:
+                    eq: '8800'
+                wildcard_bits: 0.0.0.255
+        -   destination:
+                host: 100.100.100.100
+            grant: permit
+            protocol: tcp
+            protocol_options:
+                tcp:
+                    established: true
+            sequence: 90
+            source:
+                address: 197.98.201.0
+                port_protocol:
+                    eq: '9400'
+                wildcard_bits: 0.0.0.255
+        -   destination:
+                host: 100.100.100.100
+            grant: permit
+            protocol: tcp
+            protocol_options:
+                tcp:
+                    established: true
+            sequence: 110
+            source:
+                address: 197.98.201.0
+                port_protocol:
+                    eq: '9443'
+                wildcard_bits: 0.0.0.255
+        -   destination:
+                host: 100.100.100.100
+            grant: permit
+            protocol: tcp
+            protocol_options:
+                tcp:
+                    established: true
+            sequence: 130
+            source:
+                address: 197.98.201.0
+                port_protocol:
+                    eq: '9480'
+                wildcard_bits: 0.0.0.255
+        -   destination:
+                host: 100.100.100.100
+            grant: deny
+            protocol: tcp
+            sequence: 510
+            source:
+                address: 197.98.201.0
+                wildcard_bits: 0.0.0.255
+        acl_type: extended
+        name: testtest
+    -   aces:
+        -   destination:
+                address: 197.98.201.0
+                wildcard_bits: 0.0.0.255
+            grant: permit
+            protocol: ip
+            sequence: 150
+            source:
+                address: 172.20.2.0
+                wildcard_bits: 0.0.0.255
+        -   destination:
+                address: 197.98.201.0
+                wildcard_bits: 0.0.0.255
+            grant: permit
+            protocol: ip
+            sequence: 160
+            source:
+                address: 172.21.2.0
+                wildcard_bits: 0.0.0.255
+        acl_type: extended
+        name: testtesttest
+    afi: ipv4

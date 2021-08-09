@@ -1,0 +1,11 @@
+---
+- name: Junos facts playbook
+  hosts: devnetXe
+  gather_facts: no
+  tasks:
+  - name: Run command and parse with native
+    ansible.netcommon.cli_parse:
+      command: "show configuration"
+      parser:
+        name: ansible.netcommon.native
+      set_fact: interfaces_fact

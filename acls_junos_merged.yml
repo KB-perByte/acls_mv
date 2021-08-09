@@ -15,7 +15,7 @@
               port_protocol:
                 eq: ssh
             protocol: tcp
-      - afi: ipv4
+      - afi: ipv4  ##### make ipv6
         acls:
         - name: from-cisco
           aces:

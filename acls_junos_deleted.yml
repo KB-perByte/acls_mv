@@ -1,0 +1,13 @@
+---
+- name: Junos ACLs playbook
+  hosts: junos
+  gather_facts: no
+  tasks:
+  
+  - name: add JUNOS acl interface filter
+    junipernetworks.junos.junos_acl_interfaces:
+      state: deleted
+
+  - name: Merge JUNOS acl
+    junipernetworks.junos.junos_acls:
+      state: deleted

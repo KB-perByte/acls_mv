@@ -8,6 +8,11 @@
       gather_subset: min
       gather_network_resources: acls
 
+  - name: Dump configuration of ACLs
+    copy:
+      content: "{{ ansible_network_resources | to_nice_yaml }}"
+      dest: "{{ playbook_dir }}/host_vars/{{ inventory_hostname }}.yaml"
+
   - name: Ensure that the acl information is accurate.
     cisco.ios.ios_acls:
       config: "{{ ansible_network_resources['acls'] }}"
