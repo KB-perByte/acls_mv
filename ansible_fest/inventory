@@ -1,4 +1,12 @@
-[iosxr]
+[iosxr:children]
+box1
+box2
+
+[box1]
 10.0.150.103
+
+[box2]
 10.0.150.231
 
+[junos]
+192.168.122.100

@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- hosts: iosxr
   gather_facts: no
   tasks:
     - include_tasks: pre.yaml

@@ -9,8 +9,10 @@
         config: "{{ acls }}"
         state: overridden
       when: ansible_network_os == "cisco.iosxr.iosxr"
-      # register: result
+      register: result
 
-    # - debug:
-    #     var: result
-    #   when: result.changed == True
+    - name: "Checking for config drift"
+      debug:
+        # var: result
+        msg: Configuration drift detected {{ inventory_hostname }}
+      when: result.changed == True

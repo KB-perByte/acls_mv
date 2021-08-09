@@ -1,26 +1,44 @@
 -
   hosts: iosxr
   connection: ansible.netcommon.network_cli
+  gather_facts: no
   vars:
     ansible_persistent_log_messages: True
   tasks:
-    - name: ACL Management IOS-XR
+
+    - name: ACL Management IOS-XR Network_Management2
       register: result
       ignore_errors: true
       cisco.iosxr.iosxr_config:
         lines:
-          - "ipv4 access-list GoogleDNS1"
-          - " 10 remark googleDNS"
-          - " 20 permit ipv4 host 8.8.8.8 any"
-          - "ipv4 access-list Network_Management1"
-          - " permit ipv4 192.168.10.0 0.0.0.255 any"
-          - " permit ipv4 192.168.20.0 0.0.0.255 any"
-          - " permit ipv4 192.168.30.0 0.0.0.255 any"
-          - " permit ipv4 192.168.40.0 0.0.0.255 any"
+          - "10 permit ipv6 3333:1:2:3::/64 any"
+          - "20 permit ipv6 4444:1:2:3::/64 any"
+          - "30 permit ipv6 5555:1:2:3::/64 any"
+          - "39 remark Block BGP traffic from a given host"
+          - "40 deny tcp host 6666:1:2:3::10 eq bgp host 7777:1:2:3::20 range 1300 1400"
+        parents:
           - "ipv6 access-list Network_Management2"
-          - " 10 permit ipv6 3333:1:2:3::/64 any"
-          - " 20 permit ipv6 4444:1:2:3::/64 any"
-          - " 30 permit ipv6 5555:1:2:3::/64 any"
-          - " 39 remark Block BGP traffic from a given host"
-          - " 40 deny tcp host 6666:1:2:3::10 eq bgp host 7777:1:2:3::20 range 1300 1400"
+
+    - name: ACL Management IOS-XR Network_Management1
+      register: result
+      ignore_errors: true
+      cisco.iosxr.iosxr_config:
+        lines:
+          - "10 permit ipv4 192.168.10.0 0.0.0.255 any"
+          - "20 permit ipv4 192.168.20.0 0.0.0.255 any"
+          - "30 permit ipv4 192.168.30.0 0.0.0.255 any"
+          - "40 permit ipv4 192.168.40.0 0.0.0.255 any"
+        parents:
+          - "ipv4 access-list Network_Management1"
+
+    - name: ACL Management IOS-XR GoogleDNS1
+      register: result
+      ignore_errors: true
+      cisco.iosxr.iosxr_config:
+        lines:
+          - "10 remark googleDNS"
+          - "20 permit ipv4 host 8.8.8.8 any"
+        parents:
+          - "ipv4 access-list GoogleDNS1"
+
 

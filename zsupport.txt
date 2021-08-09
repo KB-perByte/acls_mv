@@ -7,3 +7,53 @@
     junipernetworks.junos.junos_command:
       commands: show version
     when: ansible_network_os == 'junipernetworks.junos.junos'
+
+
+
+
+
+FIRST USECASE ---------- :) 
+
+Blank device config 
+
+populate data by config module
+
+ansible-playbook playbooks/init.yaml -vvvv 
+
+brownfild device is ready 
+Gather the facts from the above configured brwnfield device
+update inventory with other clear slate device
+
+ansible-playbook playbooks/facts.yaml -vvvv
+
+show in the clear slate device that the device is not having any config on the existing box
+
+ssh ansible@10.0.150.103       <- brownfield 
+ssh ansible@10.0.150.231       <- clearslate
+show access-lists
+
+checked on the clear slate device that there is no configuration present int the clear slate device
+So, now we are trying to push the gahered config from the brownfield device and pushing it on to the clear slate device
+using ansible Resource module, state - overriden
+
+show the playbook for sure
+
+ansible-playbook playbooks/configure.yaml -vvvv
+
+the output of the play would be yellow and green,
+so it changed for the clear slate device and did not change any config for the existing brownfield device
+
+SECOND USECASE ----------- :) 
+
+showing configuration drift and rescue, 
+
+
+use make drift to change config on one of the boxes
+ansible-playbook playbooks/make_drift.yaml
+
+check drift by validating 
+ansible-playbook playbooks/validate.yaml -vvvv
+
+#TODO
+1. interfaces implementation for iosxr_acl
+2. update validate playbook with gathered state and assert the changes to show drift
