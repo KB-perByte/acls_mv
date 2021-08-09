@@ -1,0 +1,15 @@
+---
+- hosts: all
+  gather_facts: no
+  tasks:
+    - include_tasks: pre.yaml
+    - name: "XRv - Gather existing acls facts from a Brownfield Environment"
+      cisco.iosxr.iosxr_facts:
+        gather_network_resources:
+          - acls
+      when: ansible_network_os == "cisco.iosxr.iosxr"
+
+    - name: "iosxr - Store gathered facts in a flat file - SoT"
+      copy:
+        content: "{{ ansible_network_resources | to_nice_yaml }}"
+        dest: "{{ playbook_dir }}/vars/iosxr.yaml"

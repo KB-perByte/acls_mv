@@ -1,0 +1,16 @@
+---
+- hosts: iosxr
+  gather_facts: no
+  vars_files:
+    - "vars/iosxr.yaml"
+  tasks:
+    - name: "Iosxr - Configure ACLS"
+      iosxr_acls:
+        config: "{{ acls }}"
+        state: overridden
+      when: ansible_network_os == "cisco.iosxr.iosxr"
+      register: result
+
+    - debug:
+        var: result
+      when: result.changed == True

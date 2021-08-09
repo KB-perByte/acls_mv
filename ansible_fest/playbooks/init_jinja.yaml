@@ -1,0 +1,41 @@
+#!/usr/local/bin/ansible-playbook -f 10
+---
+- name: ACL
+  hosts: iosxr
+  gather_facts: false
+
+  vars:
+  - aclNAME: Network_Management1
+  - aclLIST: "{{ ACL[aclNAME].LIST }}"
+  - aclTYPE: "{{ ACL[aclNAME].TYPE }}"
+
+  tasks:
+    - name: "GET access-list"
+      register: get_acl_config
+      iosxr_command:
+        commands:
+          - "show access-lists {{ aclNAME }}"
+      ignore_errors: True
+
+    - name: "DEL access-list lines"
+      when: "(get_acl_config.stdout_lines[0][0] != '') and (item not in lookup('template', 'iosxr_acl.j2'))"
+      with_items: "{{ get_acl_config.stdout_lines[0] |\
+                          regex_replace('[ \t]{2}') |\
+                          regex_replace(', wildcard bits') |\
+                          regex_replace(' [(].{9,30}[)]') }}"
+      ignore_errors: True
+      iosxr_config:
+        lines: "no {{ item }}"
+        parents: "{{aclTYPE}} access-list {{ aclNAME }}"
+
+    - name: "PUT access-list lines"
+      when: "(item not in get_acl_config.stdout_lines[0] |\
+                          regex_replace('[ \t]{2}') |\
+                          regex_replace(', wildcard bits') |\
+                          regex_replace(' [(].{9,30}[)]'))"
+      with_items: "{{ lookup('template', 'iosxr_acl.j2').split('\n') }}"
+      iosxr_config:
+        lines: "{{ item }}"
+        parents: "{{aclTYPE}} access-list {{ aclNAME }}"
+
+

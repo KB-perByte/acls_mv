@@ -1,0 +1,30 @@
+ansible_connection: network_cli
+ansible_network_os: cisco.iosxr.iosxr
+ansible_user: ansible
+ansible_password: ansible
+#ansible_user: vagrant
+#ansible_password: vagrant
+#ansible_ssh_port: 2223
+#ansible_network_cli_ssh_type: libssh
+#netconf: {'transport': 'netconf'}
+ACL:
+  Network_Management1:
+    TYPE: ipv4
+    LIST:
+      - permit ipv4 192.168.10.0 0.0.0.255 any
+      - permit ipv4 192.168.20.0 0.0.0.255 any
+      - permit ipv4 192.168.30.0 0.0.0.255 any
+      - permit ipv4 192.168.40.0 0.0.0.255 any
+  GoogleDNS1:
+    TYPE: ipv4
+    LIST:
+     - remark googleDNS
+     - permit ipv4 host 8.8.8.8 any
+  Network_Management2:
+    TYPE: ipv6
+    LIST:
+     - permit ipv6 3333:1:2:3::/64 any
+     - permit ipv6 4444:1:2:3::/64 any
+     - permit ipv6 5555:1:2:3::/64 any
+     - remark Block BGP traffic from a given host
+     - deny tcp host 6666:1:2:3::10 eq bgp host 7777:1:2:3::20 range 1300 1400
