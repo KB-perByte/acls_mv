@@ -1,3 +1,21 @@
+acl_interfaces:
+-   access_groups:
+    -   acls:
+        -   direction: in
+            name: GoogleDNS1
+        afi: ipv4
+    name: GigabitEthernet0/0/0/0
+-   access_groups:
+    -   acls:
+        -   direction: in
+            name: Network_Management2
+        afi: ipv6
+    name: GigabitEthernet0/0/0/1
+-   name: GigabitEthernet0/0/0/3
+-   name: GigabitEthernet0/0/0/4
+-   name: Loopback888
+-   name: Loopback999
+-   name: MgmtEth0/RP0/CPU0/0
 acls:
 -   acls:
     -   aces:

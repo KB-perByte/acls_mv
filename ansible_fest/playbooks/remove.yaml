@@ -2,8 +2,16 @@
 - hosts: iosxr
   gather_facts: no
   tasks:
+    - name: "Iosxr - Delete ACLS interfaces"
+      iosxr_acl_interfaces:
+        state: deleted
+      when: ansible_network_os == "cisco.iosxr.iosxr"
+      register: result
+      
     - name: "Iosxr - Delete ACLS"
       iosxr_acls:
         state: deleted
       when: ansible_network_os == "cisco.iosxr.iosxr"
       register: result
+
+

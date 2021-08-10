@@ -9,6 +9,12 @@
         config: "{{ acls }}"
         state: overridden
       when: ansible_network_os == "cisco.iosxr.iosxr"
+
+    - name: "Iosxr - Configure ACLS_Interfaces"
+      iosxr_acl_interfaces:
+        config: "{{ acl_interfaces }}"
+        state: overridden
+      when: ansible_network_os == "cisco.iosxr.iosxr"
       # register: result
 
     # - debug:
