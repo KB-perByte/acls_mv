@@ -1,0 +1,17 @@
+-
+  hosts: brownfield
+  connection: ansible.netcommon.network_cli
+  gather_facts: no
+  tasks:
+    - name: Show ACLs and Interface details from brownfield device
+      cisco.iosxr.iosxr_command:
+        commands:
+          - "show access-lists afi-all"
+          - "show running-config interface"
+      register: result
+
+    - name: "ACLs on brownfield device"
+      debug:
+        # var: result
+        var: result.stdout_lines
+      # when: result.changed == True

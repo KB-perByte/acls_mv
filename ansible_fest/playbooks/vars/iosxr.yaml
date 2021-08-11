@@ -1,7 +1,7 @@
 acl_interfaces:
 -   access_groups:
     -   acls:
-        -   direction: in
+        -   direction: out
             name: GoogleDNS1
         afi: ipv4
     name: GigabitEthernet0/0/0/0
@@ -36,7 +36,7 @@ acls:
             protocol: ipv4
             sequence: 10
             source:
-                address: 192.168.10.0
+                address: 192.168.12.0
                 wildcard_bits: 0.0.0.255
         -   destination:
                 any: true

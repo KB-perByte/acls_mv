@@ -1,12 +1,16 @@
 [iosxr:children]
-box1
-box2
+brownfield
+clearslate
 
-[box1]
+[brownfield]
 10.0.150.103
 
-[box2]
+[clearslate]
 10.0.150.231
 
 [junos]
-192.168.122.100
+192.168.122.149
+
+[junos:vars]
+ansible_network_import_modules=True
+

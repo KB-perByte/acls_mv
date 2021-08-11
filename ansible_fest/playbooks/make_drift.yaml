@@ -1,6 +1,6 @@
 -
-  hosts: box1
-  name: make drift on box1 [brownfield]
+  hosts: brownfield
+  name: make drift on brownfield
   connection: ansible.netcommon.network_cli
   vars:
     ansible_persistent_log_messages: True
