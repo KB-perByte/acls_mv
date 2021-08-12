@@ -1,3 +1,5 @@
+source /home/sagpaul/MyVnvs/festprep/bin/activate
+
 ansible-navigator run playbooks/remove.yaml --ee false --mode stdout
 ansible-navigator run playbooks/0a_iosxr_config_setup.yaml --ee false --mode stdout
 ansible-navigator run playbooks/0c_junos_config_setup.yaml --ee false --mode stdout
