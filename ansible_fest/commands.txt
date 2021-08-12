@@ -7,6 +7,9 @@ ansible-navigator run playbooks/0a_iosxr_config_setup.yaml --ee false --mode std
 cat playbooks/0c_junos_config_setup.yaml
 ansible-navigator run playbooks/0c_junos_config_setup.yaml --ee false --mode stdout
 
+cat playbooks/jinja_config_example.yaml
+cat playbooks/templates/iosxr_acl.j2
+
 cat playbooks/1a_show_command.yaml
 ansible-navigator run playbooks/1a_show_command.yaml --ee false --mode stdout
 cat playbooks/2a_gather_facts.yaml

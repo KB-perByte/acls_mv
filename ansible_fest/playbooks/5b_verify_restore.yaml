@@ -15,12 +15,13 @@
       ansible.utils.fact_diff:
         before: "{{ gather_result['gathered']|ansible.utils.to_paths }}"
         after: "{{ acls|ansible.utils.to_paths }}"
+      register: drift_result
 
     - name: IOSXR - Configure ACLs back to previous state
       cisco.iosxr.iosxr_acls:
         config: "{{ acls }}"
         state: overridden
-      when: ansible_network_os == "cisco.iosxr.iosxr"
+      when: ansible_network_os == "cisco.iosxr.iosxr" and drift_result.changed == True
       register: result
 
     - name: IOSXR - Configuration restored successfully
