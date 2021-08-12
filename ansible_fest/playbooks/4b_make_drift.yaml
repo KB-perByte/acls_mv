@@ -1,0 +1,13 @@
+-
+  hosts: brownfield
+  name: Make drift on brownfield
+  gather_facts: no
+  tasks:
+    - name: IOSXR - Remove entry from Network_Management2 ACL
+      register: result
+      ignore_errors: true
+      cisco.iosxr.iosxr_config:
+        lines:
+          - "no 30 permit ipv6 5555:1:2:3::/64 any"
+        parents:
+          - "ipv6 access-list Network_Management2"

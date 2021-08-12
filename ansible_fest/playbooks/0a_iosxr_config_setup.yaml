@@ -1,14 +1,9 @@
 -
   hosts: brownfield
-  connection: ansible.netcommon.network_cli
   gather_facts: no
-  vars:
-    ansible_persistent_log_messages: True
   tasks:
 
     - name: ACL Management IOS-XR Network_Management2
-      # register: result
-      # ignore_errors: true
       cisco.iosxr.iosxr_config:
         lines:
           - "10 permit ipv6 3333:1:2:3::/64 any"
@@ -20,8 +15,6 @@
           - "ipv6 access-list Network_Management2"
 
     - name: ACL Management IOS-XR Network_Management1
-      # register: result
-      # ignore_errors: true
       cisco.iosxr.iosxr_config:
         lines:
           - "10 permit ipv4 192.168.10.0 0.0.0.255 any"
@@ -32,8 +25,6 @@
           - "ipv4 access-list Network_Management1"
 
     - name: ACL Management IOS-XR GoogleDNS1
-      # register: result
-      # ignore_errors: true
       cisco.iosxr.iosxr_config:
         lines:
           - "10 remark googleDNS"
@@ -42,8 +33,6 @@
           - "ipv4 access-list GoogleDNS1"
 
     - name: GoogleDNS1 for Gig0/0/0/0
-      # register: result
-      # ignore_errors: true
       cisco.iosxr.iosxr_config:
         lines:
           - "ipv4 access-group GoogleDNS1 ingress"
@@ -51,8 +40,6 @@
           - "interface GigabitEthernet0/0/0/0"
 
     - name: Network_Management2 for Gig0/0/0/1
-      # register: result
-      # ignore_errors: true
       cisco.iosxr.iosxr_config:
         lines:
           - "ipv6 access-group Network_Management2 ingress"

@@ -1,0 +1,29 @@
+---
+- hosts: brownfield
+  gather_facts: no
+  vars_files:
+    - "vars/iosxr.yaml"
+  tasks:
+
+    - name: IOSXR - Gather existing configuration after drift
+      cisco.iosxr.iosxr_acls:
+        state: gathered
+      when: ansible_network_os == "cisco.iosxr.iosxr"
+      register: gather_result
+
+    - name: IOSXR - Check for drift
+      ansible.utils.fact_diff:
+        before: "{{ gather_result['gathered']|ansible.utils.to_paths }}"
+        after: "{{ acls|ansible.utils.to_paths }}"
+
+    - name: IOSXR - Configure ACLs back to previous state
+      cisco.iosxr.iosxr_acls:
+        config: "{{ acls }}"
+        state: overridden
+      when: ansible_network_os == "cisco.iosxr.iosxr"
+      register: result
+
+    - name: IOSXR - Configuration restored successfully
+      debug:
+        msg: Configuration drift detected and resolved on {{ inventory_hostname }}
+      when: result.changed == True

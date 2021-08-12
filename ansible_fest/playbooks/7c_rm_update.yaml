@@ -6,13 +6,13 @@
     - "vars/junos.yaml"
   tasks:
     - name: IOSXR - Update ACLs
-      iosxr_acls:
+      cisco.iosxr.iosxr_acls:
         config: "{{ acls }}"
         state: replaced
       when: ansible_network_os == "cisco.iosxr.iosxr"
 
     - name: JUNOS - Update ACLs
-      junos_acls:
+      junipernetworks.junos.junos_acls:
         config: "{{ junos_acls }}"
         state: replaced
       when: ansible_network_os == "junipernetworks.junos.junos"

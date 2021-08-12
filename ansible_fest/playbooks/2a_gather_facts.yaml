@@ -1,16 +1,19 @@
 ---
-- hosts: iosxr
+- hosts: brownfield
   gather_facts: no
   tasks:
     - include_tasks: pre.yaml
-    - name: "XRv - Gather existing acls facts from a Brownfield Environment"
+    - name: IOSXR - Gather existing acls & acls_interfaces facts from a Brownfield Environment
       cisco.iosxr.iosxr_facts:
+        gather_subset:
+          - '!all'
+          - '!min'
         gather_network_resources:
           - acls
           - acl_interfaces
       when: ansible_network_os == "cisco.iosxr.iosxr"
 
-    - name: "iosxr - Store gathered facts in a flat file - SoT"
+    - name: IOSXR - Store gathered facts in a flat file - Source of Truth
       copy:
         content: "{{ ansible_network_resources | to_nice_yaml }}"
         dest: "{{ playbook_dir }}/vars/iosxr.yaml"

@@ -1,17 +1,24 @@
 ---
-- hosts: iosxr
+- hosts: all
   gather_facts: no
   tasks:
-    - name: "Iosxr - Delete ACLS interfaces"
-      iosxr_acl_interfaces:
+    - name: IOSXR - Delete ACLS interfaces
+      cisco.iosxr.iosxr_acl_interfaces:
         state: deleted
       when: ansible_network_os == "cisco.iosxr.iosxr"
-      register: result
       
-    - name: "Iosxr - Delete ACLS"
-      iosxr_acls:
+    - name: IOSXR - Delete ACLS
+      cisco.iosxr.iosxr_acls:
         state: deleted
       when: ansible_network_os == "cisco.iosxr.iosxr"
-      register: result
 
+    - name: JUNOS - Update ACLS interfaces
+      junipernetworks.junos.junos_acl_interfaces:
+        state: deleted
+      when: ansible_network_os == "junipernetworks.junos.junos"
+
+    - name: JUNOS - Update ACLs
+      junipernetworks.junos.junos_acls:
+        state: deleted
+      when: ansible_network_os == "junipernetworks.junos.junos"
 

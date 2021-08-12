@@ -1,0 +1,17 @@
+---
+- hosts: clearslate
+  gather_facts: no
+  vars_files:
+    - "vars/iosxr.yaml"
+  tasks:
+    - name: IOSXR - Configure ACLs on a clear slate device
+      cisco.iosxr.iosxr_acls:
+        config: "{{ acls }}"
+        state: overridden
+      when: ansible_network_os == "cisco.iosxr.iosxr"
+
+    - name: IOSXR - Configure ACL_Interfaces on clear slate device
+      cisco.iosxr.iosxr_acl_interfaces:
+        config: "{{ acl_interfaces }}"
+        state: overridden
+      when: ansible_network_os == "cisco.iosxr.iosxr"
