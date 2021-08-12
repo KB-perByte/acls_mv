@@ -15,3 +15,14 @@
         config: "{{ acl_interfaces }}"
         state: overridden
       when: ansible_network_os == "cisco.iosxr.iosxr"
+
+    - name: IOSXR - Show ACLs and Interface details from clear slate device
+      cisco.iosxr.iosxr_command:
+        commands:
+          - "show access-lists afi-all"
+          - "show running-config interface"
+      register: result
+
+    - name: IOSXR - ACLs and Interface on clear slate device
+      debug:
+        var: result.stdout_lines

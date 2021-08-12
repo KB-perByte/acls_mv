@@ -6,3 +6,8 @@ ansible-navigator run playbooks/1a_show_command.yaml --ee false --mode stdout
 ansible-navigator run playbooks/2a_gather_facts.yaml --ee false --mode stdout
 ansible-navigator run playbooks/3a_rm_setup.yaml --ee false --mode stdout
 
+ansible-navigator run playbooks/4b_make_drift.yaml --ee false --mode stdout
+ansible-navigator run playbooks/5b_verify_restore.yaml --ee false --mode stdout
+
+ansible-navigator run playbooks/6c_gather_facts_all.yaml --ee false --mode stdout
+ansible-navigator run playbooks/7c_rm_update.yaml --ee false --mode stdout
