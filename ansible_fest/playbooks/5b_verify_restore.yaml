@@ -4,25 +4,25 @@
   vars_files:
     - "vars/iosxr.yaml"
   tasks:
-
-    - name: IOSXR - Gather existing configuration after drift
-      cisco.iosxr.iosxr_acls:
-        state: gathered
-      when: ansible_network_os == "cisco.iosxr.iosxr"
-      register: gather_result
-
     - name: IOSXR - Check for drift
-      ansible.utils.fact_diff:
-        before: "{{ gather_result['gathered']|ansible.utils.to_paths }}"
-        after: "{{ acls|ansible.utils.to_paths }}"
-      register: drift_result
+      cisco.iosxr.iosxr_acls:
+        config: "{{ acls }}"
+        state: overridden
+      when: ansible_network_os == "cisco.iosxr.iosxr"
+      register: result_check
+      check_mode: true
 
     - name: IOSXR - Configure ACLs back to previous state
       cisco.iosxr.iosxr_acls:
         config: "{{ acls }}"
         state: overridden
-      when: ansible_network_os == "cisco.iosxr.iosxr" and drift_result.changed == True
+      when: ansible_network_os == "cisco.iosxr.iosxr" and result_check.changed == True
       register: result
+
+    - name: IOSXR - Commands fired for respective device
+      debug:
+        var: result["commands"]
+      when: ansible_network_os == "cisco.iosxr.iosxr"
 
     - name: IOSXR - Configuration restored successfully
       debug:

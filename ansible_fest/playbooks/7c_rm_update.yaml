@@ -9,32 +9,22 @@
       cisco.iosxr.iosxr_acls:
         config: "{{ acls }}"
         state: replaced
+      register: iosxr_result
       when: ansible_network_os == "cisco.iosxr.iosxr"
 
     - name: JUNOS - Update ACLs
       junipernetworks.junos.junos_acls:
         config: "{{ junos_acls }}"
         state: replaced
+      register: junos_result
       when: ansible_network_os == "junipernetworks.junos.junos"
 
-    - cisco.iosxr.iosxr_command:
-        commands:
-          - "show access-lists Network_Management1"
-      register: iosxr_res
+    - name: IOSXR - Commands fired for respective device
+      debug:
+        var: iosxr_result["commands"]
       when: ansible_network_os == "cisco.iosxr.iosxr"
 
-    - name: IOSXR - Show updated IOSXR ACLs from device
+    - name: JUNOS - Commands fired for respective device
       debug:
-        var: iosxr_res.stdout_lines
-      when: ansible_network_os == "cisco.iosxr.iosxr"
-
-    - junipernetworks.junos.junos_command:
-        commands:
-          - "show configuration firewall family inet filter from-cisco"
-      register: junos_res
-      when: ansible_network_os == "junipernetworks.junos.junos"
-
-    - name: JUNOS - Show updated JUNOS ACLs from device
-      debug:
-        var: junos_res.stdout_lines
+        var: junos_result["xml"]
       when: ansible_network_os == "junipernetworks.junos.junos"
