@@ -1,5 +1,5 @@
 source /home/sagpaul/MyVnvs/festprep/bin/activate
-
+------------------------- Pre config ----------------------------------------------
 cat playbooks/remove.yaml
 ansible-navigator run playbooks/remove.yaml --ee false --mode stdout
 cat playbooks/0a_iosxr_config_setup.yaml
@@ -10,25 +10,37 @@ ansible-navigator run playbooks/0c_junos_config_setup.yaml --ee false --mode std
 cat playbooks/jinja_config_example.yaml
 cat playbooks/templates/iosxr_acl.j2
 
+rm -rf playbooks/vars/*
+
+--------------------------- Sessions ----------------------------------------------
+clear
 cat playbooks/1a_show_command.yaml
 ansible-navigator run playbooks/1a_show_command.yaml --ee false --mode stdout
+clear
 cat playbooks/2a_gather_facts.yaml
 ansible-navigator run playbooks/2a_gather_facts.yaml --ee false --mode stdout
+clear
 cat playbooks/vars/iosxr.yaml
 cat playbooks/3a_rm_setup.yaml
 ansible-navigator run playbooks/3a_rm_setup.yaml --ee false --mode stdout
 
+clear
 cat playbooks/4b_make_drift.yaml
 ansible-navigator run playbooks/4b_make_drift.yaml --ee false --mode stdout
+clear
 cat playbooks/5b_verify_restore.yaml
 ansible-navigator run playbooks/5b_verify_restore.yaml --ee false --mode stdout
 
+clear
 cat playbooks/6c_gather_facts_all.yaml
 ansible-navigator run playbooks/6c_gather_facts_all.yaml --ee false --mode stdout
+clear
 cat playbooks/vars/iosxr.yaml
+clear
 cat playbooks/vars/junos.yaml
 gedit playbooks/vars/iosxr.yaml
 gedit playbooks/vars/junos.yaml
+clear
 cat playbooks/7c_rm_update.yaml
 ansible-navigator run playbooks/7c_rm_update.yaml --ee false --mode stdout
 
