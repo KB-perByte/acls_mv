@@ -1,5 +1,4 @@
 collections/
-.log
+
 *.json
 *.log
-ansible_fest/playbooks/0a_iosxr_config_setup-artifact-2021-08-16T14:54:58.629608+00:00.json
