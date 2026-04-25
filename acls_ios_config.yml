@@ -14,4 +14,4 @@
     cisco.ios.ios_config:
       lines:
       - ip access-group 99 in
-      parents: interface GigabitEthernet 0/0
+      parents: interface GigabitEthernet 2
