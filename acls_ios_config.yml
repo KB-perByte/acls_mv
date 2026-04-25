@@ -1,6 +1,6 @@
 ---
 - name: IOS config acl playbook
-  hosts: devnetXe
+  hosts: iosxe_cat8k
   gather_facts: no
   tasks:
   - name: Set acls for loopback
