@@ -9,4 +9,4 @@
 
     - name: Display output
       ansible.builtin.debug:
-        msg: "{{ show_ver.stdout[0] }}"
+        msg: "{{ show_ver.stdout_lines[0][0] }}"
