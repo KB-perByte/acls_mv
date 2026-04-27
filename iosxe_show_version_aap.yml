@@ -1,0 +1,12 @@
+- name: Run show version on IOS-XE (CLI)
+  hosts: iosxe_cli
+  gather_facts: false
+  tasks:
+    - name: Execute show version
+      cisco.ios.ios_command:
+        commands: show version
+      register: show_ver
+
+    - name: Display output
+      ansible.builtin.debug:
+        msg: "{{ show_ver.stdout[0] }}"
