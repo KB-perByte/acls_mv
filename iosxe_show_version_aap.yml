@@ -1,5 +1,5 @@
 - name: Run show version on IOS-XE (CLI)
-  hosts: iosxe_dummy
+  hosts: ios
   gather_facts: false
   tasks:
     - name: Execute show version
