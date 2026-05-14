@@ -1,0 +1,5 @@
+- name: Admin information
+  hosts: localhost
+  gather_facts: false
+  roles:
+    - role: network.meraki_ops.admin_info
